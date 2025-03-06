@@ -1,5 +1,6 @@
 import { TaskRepository } from "../repositories/task.repository";
 import { Task } from "../domain/task.entity";
+import { TaskDto } from "../domain/task.dto";
 
 
 export class TaskService {
@@ -10,7 +11,7 @@ export class TaskService {
     }
 
 
-    async createTask(task: Task) {
+    async createTask(task: TaskDto) {
         return await this.taskRepository.create({
             title: task.title,
             description: task.description,
@@ -27,7 +28,7 @@ export class TaskService {
         return await this.taskRepository.findById(id);
     }
 
-    async updateTask(id: string, task: Partial<Task>) {
+    async updateTask(id: string, task: Partial<TaskDto>) {
         return await this.taskRepository.update(id, task);
     }
 

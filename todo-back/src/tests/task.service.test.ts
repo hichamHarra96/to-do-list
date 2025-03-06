@@ -12,7 +12,7 @@ const mockTaskRepository = {
 
 const taskService = new TaskService(mockTaskRepository as unknown as TaskRepository);
 
-describe("🛠️ Unit Tests - Task Service", () => {
+describe("Unit Tests - Task Service", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

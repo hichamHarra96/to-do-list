@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use("/tasks", taskRoutes);
 
-describe("🛠️ API Routes Tests - Task Controller", () => {
+describe("API Routes Tests - Task Controller", () => {
   beforeAll(async () => {
     await connectDB();
   });
