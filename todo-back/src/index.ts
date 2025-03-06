@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/database";
-import taskRoutes from "./controllers/task.controller";
+import taskRoutes from "./routes/task.route";
 
 dotenv.config();
 connectDB();

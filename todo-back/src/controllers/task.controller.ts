@@ -1,41 +1,60 @@
-import { Router, Request, Response } from "express";
-import { TaskService } from "../services/task.service";
-import { Task } from "../domain/task.entity";
-import { TaskStatus } from "../domain/task.entity";
 
-const router = Router();
+import { Request, Response } from "express";
+import { TaskService } from "../services/task.service";
+import { Task, TaskStatus } from "../domain/task.entity";
+
 const taskService = new TaskService();
 
-router.post("/", async (req: Request, res: Response) => {
-    const task: Task = {
-        title: req.body.title,
-        description: req.body.description,
-        status: req.body.status ?? TaskStatus.TODO
+export const createTask = async (req: Request, res: Response) => {
+  try {
+    const task = { 
+      title: req.body.title, 
+      description: req.body.description, 
+      status: req.body.status ?? TaskStatus.TODO 
     };
     const createdTask = await taskService.createTask(task);
-    res.status(201).json(createdTask);
-});
+    res.status(201).json(createdTask); 
+  } catch (error) {
+    res.status(500).json({ error: "Error creating task" });
+  }
+};
 
-
-router.get("/", async (_req: Request, res: Response) => {
+export const getTasks = async (req: Request, res: Response) => {
+  try {
     const tasks = await taskService.getTasks();
     res.json(tasks);
-});
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching tasks" });
+  }
+};
 
-router.get("/:id", async (req: Request, res: Response) => {
+export const getTaskById = async (req: Request, res: Response) => {
+  try {
     const task = await taskService.getTaskById(req.params.id);
-    if (task) res.json(task);
-    else res.status(404).json({ message: "Task not found" });
-});
+    if (!task) {
+      res.status(404).json({ message: "Task not found" });
+    } else {
+      res.json(task);
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching task" });
+  }
+};
 
-router.put("/:id", async (req: Request, res: Response) => {
+export const updateTask = async (req: Request, res: Response) => {
+  try {
     const updatedTask = await taskService.updateTask(req.params.id, req.body);
     res.json(updatedTask);
-});
+  } catch (error) {
+    res.status(500).json({ error: "Error updating task" });
+  }
+};
 
-router.delete("/:id", async (req: Request, res: Response) => {
+export const deleteTask = async (req: Request, res: Response) => {
+  try {
     await taskService.deleteTask(req.params.id);
     res.status(204).send();
-});
-
-export default router;
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting task" });
+  }
+};

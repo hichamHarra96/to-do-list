@@ -1,6 +1,6 @@
 import request from "supertest";
 import express from "express";
-import taskRoutes from "../controllers/task.controller";
+import taskRoutes from "../routes/task.route";
 import connectDB, { closeDB } from "../config/database";
 import mongoose from "mongoose";
 
