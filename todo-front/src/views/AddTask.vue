@@ -1,6 +1,5 @@
 <template>
   <div class="add-todo container mt-4">
-    <h2>Ajouter une Nouvelle Tâche</h2>
     <TaskForm
       :task="task"
       @submited="addTask"

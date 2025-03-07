@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-12 col-md-8 mx-auto">
         <div class="card">
-          <div class="card-header bg-primary text-white">
+          <div class="card-header bg-dark text-white">
             <h2 class="h5 mb-0">Liste des Tâches</h2>
           </div>
 
           <div class="card-body">
-            <!-- Message de chargement ou d'erreur -->
+            
             <div v-if="isLoading" class="text-center py-3">
               <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Chargement...</span>
@@ -19,7 +19,6 @@
               {{ error }}
             </div>
 
-            <!-- Liste des tâches -->
             <ul class="list-group list-group-flush" v-if="!isLoading && !error">
               <TaskItem
                 v-for="task in tasks"

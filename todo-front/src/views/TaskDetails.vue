@@ -1,9 +1,18 @@
 <template>
   <div class="container mt-5">
-    <h1>Task Details</h1>
-    <div v-if="task" class="card p-4">
-      <h5>{{ task.title }}</h5>
-      <p><strong>Description:</strong> {{ task.description }}</p>
+    <h2 class="text-center mb-3">Task Details</h2>
+    <div v-if="task" class="card ">
+     
+      <div class="card-header">
+        <h2>{{ task.title }}</h2>
+        </div>
+      <div class="card-body">
+      <div class="form-floating mb-3">
+        <textarea class="form-control mt-2" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 100px" disabled v-model="task.description"> </textarea>
+     
+       <label  for="floatingTextarea2Disabled">description</label>
+      </div>
+
 
       <div class="col mb-3">
         <span class="badge bg-primary" v-if="task.status === TaskStatus.TODO"
@@ -29,6 +38,7 @@
         >
         <RouterLink to="/" class="btn btn-primary ms-2">Back</RouterLink>
       </div>
+    </div>
     </div>
     <div v-else>
       <p>Loading...</p>

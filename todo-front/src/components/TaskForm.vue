@@ -1,24 +1,23 @@
 <template>
+<div class="card mt-5">
+ <h2 class="card-header">Ajouter une Nouvelle Tâche</h2> 
+ <div class="card-body">
+
     <form @submit.prevent="handleSubmit">
       <div class="mb-3">
         <label for="title" class="form-label">Titre</label>
         <input
           id="title"
           v-model="task.title"
-          class="form-control"
+          class="form-control w-75 "
           required
         />
       </div>
-  
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <input
-          type="text"
-          v-model="task.description"
-          class="form-control"
-          required
-        />
-      </div>
+
+       <div class="form-floating">
+         <textarea class="form-control w-75" required  v-model="task.description"   id="floatingTextarea2" style="height: 100px"></textarea>
+         <label for="floatingTextarea2">Description</label>
+      </div> 
   
       <div v-if="task._id" class="mb-3">
         <label for="status" class="form-label">Statut</label>
@@ -29,9 +28,12 @@
         </select>
       </div>
   
-    <button type="submit" class="btn btn-primary">{{ task._id ? "Enregistrer les Modifications" : "Ajouter la Tache" }}</button>
-      <router-link to="/" class="btn btn-secondary ms-2">Annuler</router-link>
-    </form>
+    <button type="submit" class="btn btn-primary mt-2">{{ task._id ? "Enregistrer les Modifications" : "Ajouter la Tache" }}</button>
+      <router-link to="/" class="btn btn-secondary ms-2 mt-2">Annuler</router-link>
+    </form>   
+  </div>
+</div>
+
   </template>
   
   <script setup lang="ts">

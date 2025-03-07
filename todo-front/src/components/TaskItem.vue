@@ -4,7 +4,7 @@
       <div class="form-check col">
         <input
           readonly
-          class="form-check-input"
+          class="form-check-input bg-dark"
           type="checkbox"
           :checked="task.status === TaskStatus.DONE"
           :id="task._id"
@@ -58,7 +58,7 @@
 
         <RouterLink
           :to="`/task/${task._id}/edit`"
-          class="btn btn-secondary btn-sm"
+          class="btn btn-secondary btn-sm ms-1"
           >Modifier</RouterLink
         >
         <button class="btn btn-danger btn-sm" @click="deleteTask()">
@@ -81,7 +81,7 @@ const props = defineProps({
   },
 });
 
-// emettre un événement au composant parent
+// emettre un événement au composant parent (tasks)
 const emit = defineEmits<{
   (e: "deleted", taskId: string): void;
 }>();
