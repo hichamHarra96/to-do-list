@@ -62,11 +62,33 @@ describe("API Routes Tests - Task Controller", () => {
     expect(response.body.status).toBe("done");
   });
 
+  test("Should return 404 when updating a non-existent task", async () => {
+      const nonExistentId = new mongoose.Types.ObjectId().toString(); 
+
+      const response = await request(app)
+          .put(`/tasks/${nonExistentId}`)
+          .send({ status: "done" });
+
+      expect(response.status).toBe(404);
+      expect(response.body).toEqual({ error: "Task not found" });
+  });
+
+
   test("Should delete a task", async () => {
     const response = await request(app).delete(`/tasks/${taskId}`);
 
     expect(response.status).toBe(204); 
   });
+  
+  test("Should return 404 when deleting a non-existent task", async () => {
+    const nonExistentId = new mongoose.Types.ObjectId().toString(); 
+
+    const response = await request(app).delete(`/tasks/${nonExistentId}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({ error: "Task not found" });
+});
+
 
   test("Should return 404 for a non-existent task", async () => {
     const response = await request(app).get("/tasks/000000000000000000000000"); 
