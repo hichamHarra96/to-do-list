@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Task } from "../entities/task.entity";
 
-const API_URL = "http://localhost:5000/tasks";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const taskService = {
   async getTasks(): Promise<Task[]> {
