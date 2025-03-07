@@ -9,9 +9,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
-setupSwagger(app);
 app.use(cors());
 app.use(express.json());
+setupSwagger(app);
+
 app.use("/tasks", container.getTaskRoutes().getRouter());
 
 const PORT = process.env.PORT || 5000;

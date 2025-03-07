@@ -1,4 +1,4 @@
-# To-Do List API
+# To-Do List API (Back)
 
 Une API REST pour gérer une liste de tâches (CRUD) développée avec **Node.js**, **Express**, et **MongoDB**.
 
@@ -26,6 +26,17 @@ Créez un fichier `.env` à la racine du projet et ajoutez :
 ```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/todo-db  # Modifier si utilisation de MongoDB Atlas
+```
+
+---
+
+##  Installation avec Docker 
+
+### (lancer le back avec Docker)
+
+Dans la racine
+```env
+docker compose up --build 
 ```
 
 ---
@@ -60,3 +71,33 @@ npm test
 ```
 
 ---
+
+---
+
+# To-Do List Front
+
+## Dependencies
+- axios
+- vue-router
+- bootstrap
+---
+
+##  Installation
+
+###  **Installer les dépendances**
+```sh
+npm install
+```
+---
+
+## Démarrer le serveur
+
+### **Démarrage en mode développement**
+```sh
+npm run dev 
+```
+L'application sera accessible sur **http://localhost:5173/**
+
+---
+
+npm run dev 

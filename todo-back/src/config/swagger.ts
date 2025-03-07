@@ -2,7 +2,6 @@ import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
 
-// Définition des options Swagger
 const options: swaggerJsdoc.Options = {
     definition: {
         openapi: "3.0.0",
@@ -21,7 +20,6 @@ const options: swaggerJsdoc.Options = {
     apis: ["src/routes/*.ts"], 
 };
 
-// Génération des specs Swagger
 const swaggerSpec = swaggerJsdoc(options);
 
 // Fonction pour activer Swagger dans l'application Express

@@ -1,0 +1,17 @@
+  # Ajout de la version pour éviter des erreurs
+services:
+  # Service MongoDB
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    ports:
+      - "27017:27017"
+
+  back:
+    build: ./todo-back
+    container_name: back
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
