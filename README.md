@@ -61,6 +61,11 @@ Le serveur sera accessible sur **http://localhost:5000**
 | **PUT**  | `/tasks/:id` | Modifier une tâche  |
 | **DELETE** | `/tasks/:id` | Supprimer une tâche  |
 
+## Swagger Documentation
+
+```sh
+http://localhost:5000/api-docs/
+```
 ---
 
 ##  Exécution des tests
@@ -100,4 +105,3 @@ L'application sera accessible sur **http://localhost:5173/**
 
 ---
 
-npm run dev 
