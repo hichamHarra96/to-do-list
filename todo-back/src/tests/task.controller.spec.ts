@@ -1,12 +1,12 @@
 import request from "supertest";
 import express from "express";
-import taskRoutes from "../routes/task.route";
+import { container } from "../config/container"; 
 import connectDB, { closeDB } from "../config/database";
 import mongoose from "mongoose";
 
 const app = express();
 app.use(express.json());
-app.use("/tasks", taskRoutes);
+app.use("/tasks", container.getTaskRoutes().getRouter()); 
 
 describe("API Routes Tests - Task Controller", () => {
   beforeAll(async () => {

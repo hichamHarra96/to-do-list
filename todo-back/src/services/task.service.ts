@@ -4,10 +4,10 @@ import { TaskDto } from "../domain/task.dto";
 
 
 export class TaskService {
-    private taskRepository = new TaskRepository();
+    private taskRepository: TaskRepository;
 
-    constructor(taskRepository?: TaskRepository) {
-        this.taskRepository = taskRepository || new TaskRepository();
+    constructor(taskRepository: TaskRepository) {
+        this.taskRepository = taskRepository;
     }
 
 

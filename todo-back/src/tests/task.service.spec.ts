@@ -1,6 +1,7 @@
 import { TaskService } from "../services/task.service";
 import { TaskRepository } from "../repositories/task.repository";
 import { TaskStatus } from "../domain/task.entity";
+import { container } from "../config/container"; 
 
 const mockTaskRepository = {
   create: jest.fn(),
@@ -10,7 +11,7 @@ const mockTaskRepository = {
   delete: jest.fn(),
 };
 
-const taskService = new TaskService(mockTaskRepository as unknown as TaskRepository);
+const taskService = new TaskService(mockTaskRepository);
 
 describe("Unit Tests - Task Service", () => {
   beforeEach(() => {

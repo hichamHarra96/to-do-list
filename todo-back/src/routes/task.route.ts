@@ -1,12 +1,25 @@
 import { Router } from "express";
-import * as TaskController  from "../controllers/task.controller";
+import { TaskController } from "../controllers/task.controller";
 
-const router = Router();
+export class TaskRoutes {
+    private router: Router;
+    private taskController: TaskController;
 
-router.post("/", TaskController.createTask);
-router.get("/", TaskController.getTasks);
-router.get("/:id", TaskController.getTaskById);
-router.put("/:id", TaskController.updateTask);
-router.delete("/:id", TaskController.deleteTask);
+    constructor(taskController: TaskController) {
+        this.router = Router();
+        this.taskController = taskController;
+        this.initializeRoutes();
+    }
 
-export default router;
+    private initializeRoutes() {
+        this.router.post("/", this.taskController.createTask);
+        this.router.get("/", this.taskController.getTasks);
+        this.router.get("/:id", this.taskController.getTaskById);
+        this.router.put("/:id", this.taskController.updateTask);
+        this.router.delete("/:id", this.taskController.deleteTask);
+    }
+
+    public getRouter(): Router {
+        return this.router;
+    }
+}
