@@ -20,6 +20,7 @@ import { useRoute, useRouter } from "vue-router";
 import { Task } from "../entities/task.entity";
 import { taskService } from "../services/task.service";
 import TaskForm from "@/components/TaskForm.vue";
+import { showNotification } from "@/utils/notification"; 
 
 const route = useRoute();
 const router = useRouter();
@@ -29,18 +30,20 @@ const fetchTask = async () => {
   try {
     task.value = await taskService.getTaskById(route.params.id as string);
   } catch (error) {
-    console.error("Erreur lors de la récupération de la tâche:", error);
+    showNotification("error", "Erreur lors de la récupération de la tâche");
+    throw error;
   }
 };
 
 const updateTask = async (updatedTask: Task) => {
-    console.log("Mise à jour de la tâche :", updatedTask);
   if (!task.value) return;
   try {
     await taskService.updateTask(route.params.id as string, updatedTask);
+    showNotification("success", "Tâche mise à jour avec succès !");
     router.push(`/`);
   } catch (error) {
-    console.error("Erreur lors de la mise à jour de la tâche:", error);
+    showNotification("error","Erreur lors de la mise à jour de la tâche. Veuillez réessayer.");
+    throw error;
   }
 };
 

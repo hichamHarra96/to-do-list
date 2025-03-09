@@ -73,6 +73,7 @@
 import {type PropType } from "vue";
 import { TaskStatus, type Task } from "../entities/task.entity";
 import { taskService } from "../services/task.service";
+import { showNotification, confirmAction  } from "@/utils/notification"; 
 
 const props = defineProps({
   task: {
@@ -89,18 +90,17 @@ const emit = defineEmits<{
 const updateTask = async () => {
   try {
     if (!props.task._id) {
-      console.error("Impossible de mettre à jour la tâche : ID est indéfini");
+      showNotification("error", "Impossible de mettre à jour la tâche : ID indéfini");
       return;
     }
-
-    console.log("Mise à jour de la tâche :", props.task._id);
-
+    showNotification("success", "Tâche mise à jour avec succès !");
     props.task.status =
-      props.task.status === TaskStatus.DONE ? TaskStatus.TODO : TaskStatus.DONE;
+    props.task.status === TaskStatus.DONE ? TaskStatus.TODO : TaskStatus.DONE;
 
     await taskService.updateTask(props.task._id, props.task);
   } catch (error) {
-    console.error("Erreur lors de la mise à jour de la tâche :", error);
+    showNotification("error", "Impossible de mettre à Erreur lors de la mise à jour de la tâche la tâche");
+    throw error;
   }
 };
 
@@ -111,17 +111,24 @@ const deleteTask = async () => {
 
   try {
     if (!props.task._id) {
-      console.error("Impossible de supprimer la tâche : ID est indéfini");
+      showNotification("error", "Impossible de supprimer la tâche : ID indéfini");      
       return;
     }
-    if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
-      console.log("Suppression de la tâche :", props.task._id);
+    
+    const isConfirmed = await confirmAction(
+      "Cette action est irréversible !",
+      "Oui, supprimer !",
+      "Annuler"
+    );
 
+    if (isConfirmed) {
       await taskService.deleteTask(props.task._id);
       emit("deleted", props.task._id);
+      showNotification("success", "Tâche supprimée avec succès !");
     }
   } catch (error) {
-    console.error("Erreur lors de la suppression de la tâche :", error);
+    showNotification("error", "Erreur lors de la suppression de la tâche.");
+    throw error;
   }
 };
 </script>

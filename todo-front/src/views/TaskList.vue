@@ -47,6 +47,7 @@ import { ref, onMounted } from "vue";
 import type { Task } from "../entities/task.entity";
 import { taskService } from "../services/task.service";
 import TaskItem from "../components/TaskItem.vue";
+import { showNotification } from "@/utils/notification"; 
 
 const tasks = ref<Task[]>([]);
 const isLoading = ref<boolean>(true);
@@ -57,8 +58,8 @@ const fetchTasks = async () => {
   try {
     tasks.value = await taskService.getTasks();
   } catch (err) {
-    error.value = "Erreur lors de la récupération des tâches";
-    console.error("Erreur lors de la récupération des tâches:", err);
+    showNotification("error","Erreur lors de la récupération des tâches. Veuillez réessayer.");
+    error.value = "Impossible de charger la tâche. Veuillez réessayer.";
   } finally {
     isLoading.value = false;
   }

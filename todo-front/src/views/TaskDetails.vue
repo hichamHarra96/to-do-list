@@ -51,6 +51,7 @@ import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { Task, TaskStatus } from "../entities/task.entity";
 import { taskService } from "../services/task.service";
+import { showNotification } from "@/utils/notification"; 
 
 const route = useRoute();
 const task = ref<Task | null>(null);
@@ -59,8 +60,9 @@ const fetchTask = async () => {
   try {
     task.value = await taskService.getTaskById(route.params.id as string);
   } catch (error) {
-    console.error("Error fetching task:", error);
-  }
+    showNotification("error","Erreur lors de la récupération de la tâche. Veuillez réessayer.");
+    throw error;
+    }
 };
 
 onMounted(fetchTask);
