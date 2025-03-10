@@ -89,7 +89,7 @@ VITE_API_URL=http://localhost:5000/tasks
 
 ### **4. Lancer l'application avec Docker Compose**
 ```bash
-docker-compose up -d
+docker compose up --build 
 ```
 
 L'application sera disponible sur :  
@@ -141,12 +141,12 @@ npx vitest --watch
 ## **Lancement avec Docker Compose**
 ###  **Build + Lancement**
 ```bash
-docker-compose up -d --build
+docker compose up --build 
 ```
 
 ###  **Arrêter les services**
 ```bash
-docker-compose down
+docker compose down -v
 ```
 
 ---
