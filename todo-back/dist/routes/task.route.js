@@ -1,0 +1,237 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TaskRoutes = void 0;
+const express_1 = require("express");
+const validateObjectId_1 = require("../middlewares/validateObjectId");
+class TaskRoutes {
+    constructor(taskController) {
+        this.router = (0, express_1.Router)();
+        this.taskController = taskController;
+        this.initializeRoutes();
+    }
+    initializeRoutes() {
+        /**
+         * @swagger
+         * tags:
+         *   name: Tasks
+         *   description: to-do list API
+         */
+        /**
+         * @swagger
+         * /tasks:
+         *   post:
+         *     summary: Create a new task
+         *     description: Adds a new task to the database.
+         *     tags: [Tasks]
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             properties:
+         *               title:
+         *                 type: string
+         *                 description: The title of the task
+         *                 example: "Go to the gym"
+         *               description:
+         *                 type: string
+         *                 description: A short description of the task
+         *                 example: "Workout for 1 hour"
+         *               status:
+         *                 type: string
+         *                 enum: [todo, in_progress, done]
+         *                 description: The current status of the task
+         *                 example: "todo"
+         *     responses:
+         *       201:
+         *         description: Task successfully created
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 id:
+         *                   type: string
+         *                   example: "60d0fe4f5311236168a109ca"
+         *                 title:
+         *                   type: string
+         *                   example: "Go to the gym"
+         *                 description:
+         *                   type: string
+         *                   example: "Workout for 1 hour"
+         *                 status:
+         *                   type: string
+         *                   example: "todo"
+         *       500:
+         *         description: Internal server error
+         */
+        this.router.post("/", this.taskController.createTask);
+        /**
+         * @swagger
+         * /tasks:
+         *   get:
+         *     summary: Retrieve all tasks
+         *     description: Fetches all tasks from the database.
+         *     tags: [Tasks]
+         *     responses:
+         *       200:
+         *         description: A list of all tasks
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: array
+         *               items:
+         *                 type: object
+         *                 properties:
+         *                   id:
+         *                     type: string
+         *                     example: "60d0fe4f5311236168a109ca"
+         *                   title:
+         *                     type: string
+         *                     example: "Go to the gym"
+         *                   description:
+         *                     type: string
+         *                     example: "Workout for 1 hour"
+         *                   status:
+         *                     type: string
+         *                     example: "todo"
+         *       500:
+         *         description: Internal server error
+         */
+        this.router.get("/", this.taskController.getTasks);
+        /**
+         * @swagger
+         * /tasks/{id}:
+         *   get:
+         *     summary: Retrieve a specific task
+         *     description: Fetches a single task based on its unique ID.
+         *     tags: [Tasks]
+         *     parameters:
+         *       - in: path
+         *         name: id
+         *         required: true
+         *         schema:
+         *           type: string
+         *         description: The unique task ID
+         *     responses:
+         *       200:
+         *         description: Task retrieved successfully
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 id:
+         *                   type: string
+         *                   example: "60d0fe4f5311236168a109ca"
+         *                 title:
+         *                   type: string
+         *                   example: "Go to the gym"
+         *                 description:
+         *                   type: string
+         *                   example: "Workout for 1 hour"
+         *                 status:
+         *                   type: string
+         *                   example: "todo"
+         *       400:
+         *         description: Invalid task ID format
+         *       404:
+         *         description: Task not found
+         *       500:
+         *         description: Internal server error
+         */
+        this.router.get("/:id", validateObjectId_1.validateObjectId, this.taskController.getTaskById);
+        /**
+         * @swagger
+         * /tasks/{id}:
+         *   put:
+         *     summary: Update an existing task
+         *     description: Updates a task’s title, description, or status.
+         *     tags: [Tasks]
+         *     parameters:
+         *       - in: path
+         *         name: id
+         *         required: true
+         *         schema:
+         *           type: string
+         *         description: The unique task ID
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             properties:
+         *               title:
+         *                 type: string
+         *                 example: "Go to the gym"
+         *               description:
+         *                 type: string
+         *                 example: "Workout for 1 hour"
+         *               status:
+         *                 type: string
+         *                 enum: [todo, in_progress, done]
+         *                 example: "done"
+         *     responses:
+         *       200:
+         *         description: Task successfully updated
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 _id:
+         *                   type: string
+         *                   example: "67ce20ae40514bb2c5da8328"
+         *                 title:
+         *                   type: string
+         *                   example: "test 2"
+         *                 description:
+         *                   type: string
+         *                   example: "tjest"
+         *                 status:
+         *                   type: string
+         *                   example: "todo"
+         *                 __v:
+         *                   type: integer
+         *                   example: 0
+         *       400:
+         *         description: Invalid task ID format
+         *       404:
+         *         description: Task not found
+         *       500:
+         *         description: Internal server error
+         */
+        this.router.put("/:id", validateObjectId_1.validateObjectId, this.taskController.updateTask);
+        /**
+         * @swagger
+         * /tasks/{id}:
+         *   delete:
+         *     summary: Delete a task
+         *     description: Removes a task from the database.
+         *     tags: [Tasks]
+         *     parameters:
+         *       - in: path
+         *         name: id
+         *         required: true
+         *         schema:
+         *           type: string
+         *         description: The unique task ID
+         *     responses:
+         *       204:
+         *         description: Task successfully deleted
+         *       400:
+         *         description: Invalid task ID format
+         *       404:
+         *         description: Task not found
+         *       500:
+         *         description: Internal server error
+         */
+        this.router.delete("/:id", validateObjectId_1.validateObjectId, this.taskController.deleteTask);
+    }
+    getRouter() {
+        return this.router;
+    }
+}
+exports.TaskRoutes = TaskRoutes;

@@ -1,6 +1,6 @@
 import { TaskService } from "../services/task.service";
 import { TaskRepository } from "../repositories/task.repository";
-import { TaskStatus } from "../domain/task.entity";
+import { TaskStatus } from "../domain/taskStatus";
 import { container } from "../config/container"; 
 
 const mockTaskRepository = {

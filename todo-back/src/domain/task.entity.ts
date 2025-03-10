@@ -1,11 +1,7 @@
-export enum TaskStatus {
-    TODO = "todo",
-    IN_PROGRESS = "in_progress",
-    DONE = "done",
-}
+import { TaskStatus } from "./taskStatus";
 
 export interface Task {
-    title: string;
-    description: string;
-    status: TaskStatus;
+  title: string;
+  description: string;
+  status: TaskStatus;
 }

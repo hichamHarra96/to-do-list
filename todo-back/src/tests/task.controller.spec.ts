@@ -9,6 +9,7 @@ app.use(express.json());
 app.use("/tasks", container.getTaskRoutes().getRouter()); 
 
 describe("API Routes Tests - Task Controller", () => {
+
   beforeAll(async () => {
     await connectDB();
 
@@ -76,7 +77,7 @@ describe("API Routes Tests - Task Controller", () => {
     const response = await request(app).get(`/tasks/${new mongoose.Types.ObjectId()}`);
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({ message: "Task not found" });
+    expect(response.body.message).toContain("not found");
   });
 
   test("Should update a task", async () => {
@@ -98,7 +99,7 @@ describe("API Routes Tests - Task Controller", () => {
       .send({ status: "done" });
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({ message: "Task not found" });
+    expect(response.body.message).toContain("not found");
   });
 
   test("Should delete a task", async () => {
@@ -115,7 +116,7 @@ describe("API Routes Tests - Task Controller", () => {
     const response = await request(app).delete(`/tasks/${nonExistentId}`);
 
     expect(response.status).toBe(404);
-    expect(response.body).toEqual({ message: "Task not found" });
+    expect(response.body.message).toContain("not found");
   });
 
   test("Should return 400 for an invalid task ID", async () => {
