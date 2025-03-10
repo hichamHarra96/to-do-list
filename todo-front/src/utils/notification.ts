@@ -13,7 +13,7 @@ export const showNotification = (
     timer: type === "success" ? 3000 : undefined,
     toast: type === "success" || type === "info",
     position: type === "success" || type === "info" ? "top-end" : "center",
-    showConfirmButton: type !== "success"
+    showConfirmButton: type !== "success",
   });
 };
 

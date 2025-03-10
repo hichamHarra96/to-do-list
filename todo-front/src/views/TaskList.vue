@@ -8,7 +8,7 @@
           </div>
 
           <div class="card-body">
-            
+
             <div v-if="isLoading" class="text-center py-3">
               <div class="spinner-border text-primary" role="status">
                 <span class="visually-hidden">Chargement...</span>
@@ -20,19 +20,11 @@
             </div>
 
             <ul class="list-group list-group-flush" v-if="!isLoading && !error">
-              <TaskItem
-                v-for="task in tasks"
-                :key="task._id"
-                :task="task"
-                @deleted="removeTask"
-              />
+              <TaskItem v-for="task in tasks" :key="task._id" :task="task" @deleted="removeTask" />
             </ul>
 
             <!-- État vide -->
-            <div
-              v-if="!isLoading && !error && tasks.length === 0"
-              class="text-center py-3 text-muted"
-            >
+            <div v-if="!isLoading && !error && tasks.length === 0" class="text-center py-3 text-muted">
               Aucune tâche disponible
             </div>
           </div>
@@ -44,21 +36,21 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import type { Task } from "../entities/task.entity";
-import { taskService } from "../services/task.service";
-import TaskItem from "../components/TaskItem.vue";
-import { showNotification } from "@/utils/notification"; 
+import type { Task } from "@/entities/task.entity";
+import { taskService } from "@/services/task.service";
+import TaskItem from "@/components/TaskItem.vue";
+import { showNotification } from "@/utils/notification";
 
 const tasks = ref<Task[]>([]);
 const isLoading = ref<boolean>(true);
 const error = ref<string | null>(null);
 
-// Charge les tâches au montage du composant
+// Charge les taches au moment du montage du composant
 const fetchTasks = async () => {
   try {
     tasks.value = await taskService.getTasks();
   } catch (err) {
-    showNotification("error","Erreur lors de la récupération des tâches. Veuillez réessayer.");
+    showNotification("error", "Erreur lors de la récupération des tâches. Veuillez réessayer.");
     error.value = "Impossible de charger la tâche. Veuillez réessayer.";
   } finally {
     isLoading.value = false;

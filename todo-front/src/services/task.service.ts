@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Task } from "../entities/task.entity";
+import { Task } from "@/entities/task.entity";
 
 const API_URL = import.meta.env.VITE_API_URL;
 

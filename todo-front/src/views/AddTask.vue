@@ -1,9 +1,6 @@
 <template>
   <div class="add-todo container mt-4">
-    <TaskForm
-      :task="task"
-      @submited="addTask"
-    />
+    <TaskForm :task="task" @submited="addTask" />
   </div>
 </template>
 
@@ -13,7 +10,7 @@ import { taskService } from "@/services/task.service";
 import { Task, TaskStatus } from "@/entities/task.entity";
 import { useRouter } from "vue-router";
 import TaskForm from "@/components/TaskForm.vue";
-import { showNotification } from "@/utils/notification"; 
+import { showNotification } from "@/utils/notification";
 
 const task = ref<Task>({
   title: "",
@@ -30,7 +27,7 @@ const addTask = async (newTask: typeof task.value) => {
     router.push(`/`);
   } catch (error) {
     showNotification("error", "Erreur lors de l'ajout de la tâche");
-    //throw error;
+    throw error;
   }
 };
 </script>
